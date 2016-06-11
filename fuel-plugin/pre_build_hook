@@ -1,0 +1,22 @@
+#!/bin/bash
+
+set -eux
+
+BUILD_FOR=${BUILD_FOR:-ubuntu}
+DIR="$(dirname `readlink -f $0`)"
+
+function build_pkg {
+  case $1 in
+    ubuntu)
+      rm -rf ${DIR}/repositories/ubuntu; mkdir -p ${DIR}/repositories/ubuntu
+      cd ${DIR}; ./build-collectd.sh
+      cp ../../*.deb ${DIR}/repositories/ubuntu
+      ;;
+    *) echo "Not supported system"; exit 1;;
+  esac
+}
+
+for system in $BUILD_FOR
+do
+  build_pkg $system
+done
