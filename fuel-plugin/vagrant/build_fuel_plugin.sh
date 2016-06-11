@@ -11,5 +11,6 @@ sudo gem install fpm
 sudo apt-get install docker.io -y
 cp -r /collectd /home/vagrant
 cd /home/vagrant/collectd/fuel-plugin
+rm -rf vagrant/.vagrant
 fpb --debug --build .
 cp *.rpm /vagrant
